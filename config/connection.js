@@ -1,8 +1,6 @@
 const { connect, connection } = require("mongoose");
 
-const connectionString =
-  process.env.MONGODB_URI ||
-  "mongodb+srv://root:admin123@cluster0.l7purnz.mongodb.net/";
+const connectionString = process.env.MONGODB_URI || process.env.DB_NAME;
 
 connect(connectionString);
 
