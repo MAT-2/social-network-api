@@ -27,4 +27,28 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+  //Creating a new thought
+  async createThought(req, res) {
+    try {
+      const thought = await Thought.create(req.body);
+      res.json(thought);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json(err);
+    }
+  },
+  //Deleting a thougt
+  async deleteThought(req, res) {
+    try {
+      const thought = await Thought.findOneAndDelete({
+        _id: req.params.thoughtId,
+      });
+
+      if (!thought) {
+        res.status(404).json({ message: "There is no thought with that ID" });
+      }
+      await Thought.deleteMany({ _id: { $in: thought.students } });
+      res.json({ message: "The User and their Thought was deleted!" });
+    } catch (err) {}
+  },
 };
