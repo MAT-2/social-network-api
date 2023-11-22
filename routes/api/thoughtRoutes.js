@@ -51,4 +51,21 @@ module.exports = {
       res.json({ message: "The User and their Thought was deleted!" });
     } catch (err) {}
   },
+  //Updating a thought!
+  async updateThought(req, res) {
+    try {
+      const thought = await Thought.findOneAndUpdate(
+        { _id: req.params.thoughtId },
+        { $set: req.body },
+        { runValidators: true, new: true }
+      );
+
+      if (!thought) {
+        res.status(404).json({ message: "There is no thought with this ID!" });
+      }
+      res.json(thought);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
 };
