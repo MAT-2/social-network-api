@@ -1,4 +1,4 @@
-const { Schema, Types } = require("mongoose");
+const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
   {
@@ -12,10 +12,10 @@ const userSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      validate: {
-        validator: () => Promise.resolve(false),
-        message: "Email validation failed",
-      },
+      // validate: {
+      //   validator: () => Promise.resolve(true),
+      //   message: "Email validation failed",
+      // },
     },
     thoughts: [
       //TODO: Array of _id values referencing the Thought model
@@ -37,7 +37,6 @@ const userSchema = new Schema(
     toJSON: {
       virtuals: true,
     },
-    id: false,
   }
 );
 
@@ -46,5 +45,5 @@ userSchema.virtual("friendCount").get(function () {
   return `${this.friends.length}`;
 });
 
-const User = model("user", userSchema);
+const User = model("User", userSchema);
 module.exports = User;

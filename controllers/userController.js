@@ -5,7 +5,8 @@ const { User, Thought } = require("../models");
 module.exports = {
   async getUsers(req, res) {
     try {
-      const users = await User.find();
+      //populating thoughts
+      const users = await User.find().populate("thoughts");
       const userObj = {
         users,
       };

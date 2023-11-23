@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 //Creating a reactionSchema to be used and nested within the thoughtSchema.
-const reactionSchema = new schema({
+const reactionSchema = new Schema({
   reactionId: {
     type: Schema.Types.ObjectId,
     default: () => new Types.ObjectId(),
@@ -25,9 +25,9 @@ const reactionSchema = new schema({
   },
 });
 
-const thoughtSchema = new schema(
+const thoughtSchema = new Schema(
   {
-    username: {
+    thoughtText: {
       type: String,
       required: true,
       max_length: 280,
@@ -58,5 +58,5 @@ reactionSchema.virtual("reactionCount").get(function () {
   return `${this.reactions.length}`;
 });
 
-const Thought = model("thought", thoughtSchema);
+const Thought = model("Thought", thoughtSchema);
 module.exports = Thought;

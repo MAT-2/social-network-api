@@ -31,6 +31,12 @@ module.exports = {
   async createThought(req, res) {
     try {
       const thought = await Thought.create(req.body);
+      //Here, we are correlating and updating the thought with the id of user, and pushing the thought.
+      User.findOneAndUpdate(
+        { _id: req.body._id },
+        { $push: { thoughts: thought._id } }
+      );
+
       res.json(thought);
     } catch (err) {
       console.log(err);
